@@ -6,7 +6,6 @@ set -eu
 # Requires: curl and jq
 
 # Configure the access_token in config.cfg
-
 source ./cfg/config.cfg
 source ./getToken.sh
 
@@ -15,6 +14,14 @@ if ! [ -v LIVELLODEBUG ]; then
 fi
 # Internal settings
 country="IT"
+
+if ! [ -v CODE ]; then
+  "codice per spotify mancante"
+fi
+#debug
+if [ "$LIVELLODEBUG" -gt 0 ]; then
+	echo codice: ${CODE}
+fi
 
 #if need refresh token
 access_token=$(refreshToken)

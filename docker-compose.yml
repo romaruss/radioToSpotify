@@ -8,6 +8,7 @@ services:
       - ./workfiles:/app/workfiles
     environment:
       - CFG_PATH=/app/cfg
-      - CLIENT_SECRET=${CLIENT_SECRET}
-      - PASSWORD=${PASSWORD}
+      - refreshTokenCFG=${refreshTokenCFG}
+      - base64ClientIDSecret=${base64ClientIDSecret}
+      - CODE=${CODE}
     restart: unless-stopped
