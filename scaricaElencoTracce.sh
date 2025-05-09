@@ -17,7 +17,7 @@ selectTrackBefore="s/.*spotify:search://"
 selectTrackAfter="sed s/\"\>Spotify.*//"
 
        
-source ./config.cfg
+source ./cfg/config.cfg
 
 #echo $urlLink
 #echo $selectTrackBefore
