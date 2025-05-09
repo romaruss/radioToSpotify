@@ -17,11 +17,11 @@ RUN chmod +x *.sh
 # Specifica un comando di default (può essere uno script principale o un menu)
 #CMD ["bash", "./createPlaylist.sh"]
 
-RUN mkdir /etc/cron
-RUN echo "${CRON} bash ./createPlaylist.sh" > /etc/cron/crontab
-RUN echo "# empty line" >> /etc/cron/crontab
-
-# Init cron
-RUN crontab /etc/cron/crontab
-
-CMD ["crond", "-f"]
+#RUN mkdir /etc/cron
+#RUN echo "${CRON} bash ./createPlaylist.sh" > /etc/cron/crontab
+#RUN echo "# empty line" >> /etc/cron/crontab
+#
+## Init cron
+#RUN crontab /etc/cron/crontab
+#
+#CMD ["crond", "-f"]
