@@ -5,8 +5,9 @@ FROM alpine:latest
 RUN apk add --no-cache bash git curl jq coreutils gawk 
 
 # Imposta la directory di lavoro
-WORKDIR /app
+WORKDIR /
 
+RUN mkdir -p workfiles
 # Copia gli script, il file di configurazione e la cartella workdir
 COPY . .
 

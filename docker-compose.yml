@@ -11,6 +11,7 @@ services:
       - refreshTokenCFG=${refreshTokenCFG}
       - base64ClientIDSecret=${base64ClientIDSecret}
       - CODE=${CODE}
-      - LIVELLODEBUG=1
+      - LIVELLODEBUG=0
       - CRON=59 23 * * * ##esegue lo script alle 23.59 ogni giorno
+      - PLAYLIST_NAME="canzoni di ieri"
     restart: unless-stopped
