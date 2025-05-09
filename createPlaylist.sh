@@ -1,8 +1,6 @@
  #!/usr/bin/env bash
 set -eu
-if [ -z "$LIVELLODEBUG" ]; then
-  LIVELLODEBUG=0
-fi
+
 # Creates a spotify playlist from the top tracks of a list of artist read from a file
 # Usage: ./create_playlist_from_artists.sh <filename>
 # Requires: curl and jq
@@ -12,7 +10,9 @@ fi
 source ./cfg/config.cfg
 source ./getToken.sh
 
-
+if [ -z "$LIVELLODEBUG" ]; then
+  LIVELLODEBUG=0
+fi
 # Internal settings
 country="IT"
 
