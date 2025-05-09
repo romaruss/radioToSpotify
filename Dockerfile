@@ -2,7 +2,7 @@
 FROM alpine:latest
 
 # Installa Bash, Git e Curl (o altri pacchetti necessari)
-RUN apk add --no-cache bash git curl jq coreutils gawk
+RUN apk add --no-cache bash git curl jq coreutils gawk 
 
 # Imposta la directory di lavoro
 WORKDIR /app
@@ -14,5 +14,13 @@ COPY . .
 RUN chmod +x *.sh
 
 # Specifica un comando di default (può essere uno script principale o un menu)
-CMD ["bash", "./createPlaylist.sh"]
+#CMD ["bash", "./createPlaylist.sh"]
 
+RUN mkdir /etc/cron
+RUN echo "${CRON} bash ./createPlaylist.sh" > /etc/cron/crontab
+RUN echo "# empty line" >> /etc/cron/crontab
+
+# Init cron
+RUN crontab /etc/cron/crontab
+
+CMD ["crond", "-f"]

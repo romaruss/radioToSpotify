@@ -1,6 +1,6 @@
  #!/usr/bin/env bash
 set -eu
-
+echo "si parte"
 # Creates a spotify playlist from the top tracks of a list of artist read from a file
 # Usage: ./create_playlist_from_artists.sh <filename>
 # Requires: curl and jq
@@ -9,31 +9,28 @@ set -eu
 source ./cfg/config.cfg
 source ./getToken.sh
 
-if ! [ -v LIVELLODEBUG ]; then
-  LIVELLODEBUG=0
-fi
+
 # Internal settings
 country="IT"
 
-if ! [ -v CODE ]; then
-  "codice per spotify mancante"
-fi
-#debug
-if [ "$LIVELLODEBUG" -gt 0 ]; then
-	echo codice: ${CODE}
-fi
-
 #if need refresh token
 access_token=$(refreshToken)
-	#echo $access_token
+if [ $? -ne 0 ] || [ -z "$access_token" ]; then
+    echo "Errore: impossibile ottenere il token di accesso" >&2
+    exit 1
+fi
+#
+#echo $access_token
 headers=(-H "Accept application/json" -H "Authorization: Bearer ${access_token}" )
 
 #user_id=$(curl -s -X GET "https://api.spotify.com/v1/me" "${headers[@]}" | jq -r ".id")
 response=$(curl -s -X GET "https://api.spotify.com/v1/me" "${headers[@]}")
+
 if [ $? -ne 0 ] || [ -z "$response" ]; then
     echo "Errore: impossibile ottenere i dettagli utente" >&2
     exit 1
 fi
+
 user_id=$(echo "$response" | jq -r ".id")
 
 #debug
@@ -331,12 +328,23 @@ add_tracks_to_playlist() {
 
 
 run() {
+		#if ! [ -v LIVELLODEBUG ]; then
+  		#	LIVELLODEBUG=0;
+		#fi
 
+		#debug
+		if [ "$LIVELLODEBUG" -gt 0 ]; then
+			echo "ST 1000 run";
+		fi
+		
 		filename=$workfolder$trackFileName	
 		touch $workfolder$trackFileName
 		
 		echo "ora inizio: "  $(date)
-		bash ./scaricaElencoTracce.sh
+		bash ./scaricaElencoTracce.sh || {
+			echo "Errore durante l'esecuzione di scaricaElencoTracce.sh" >&2
+			exit 1
+		}
 		#debug
 		if [ "$LIVELLODEBUG" -gt 0 ]; then
 			echo "ST run 1000 * elenco tracce creato";
@@ -366,3 +374,4 @@ run() {
 }
 
 run
+echo "finito"

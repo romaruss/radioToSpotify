@@ -11,4 +11,6 @@ services:
       - refreshTokenCFG=${refreshTokenCFG}
       - base64ClientIDSecret=${base64ClientIDSecret}
       - CODE=${CODE}
+      - LIVELLODEBUG=1
+      - CRON=59 23 * * * ##esegue lo script alle 23.59 ogni giorno
     restart: unless-stopped
