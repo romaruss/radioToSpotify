@@ -19,7 +19,6 @@ RUN chmod +x *.sh
 
 # Crea la cartella per i cron job
 RUN mkdir -p /etc/crontabs/
-RUN mkdir -p /etc/crontabs/root
 
 # Aggiungi il cron job
 RUN echo "${CRON} /bin/bash /app/createPlaylist.sh >> /app/cron.log 2>&1" > /etc/crontabs/root
