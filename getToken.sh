@@ -7,7 +7,7 @@ function refreshToken(){
 #echo "base64ClientIDSecret: " $base64ClientIDSecret
 #echo "refreshTokenCFG: " $refreshTokenCFG
 
-if [ -z $(refreshTokenCFG) ]; then
+if [ -z ${refreshTokenCFG:-} ]; then
 
 	refreshTokenCFG=$(cat $refreshTokenFile)
 fi
