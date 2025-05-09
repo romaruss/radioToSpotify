@@ -1,0 +1,5 @@
+TODO
+
+Pensare ad un meccanismo di rimozione vecchie canzoni, e aggiunta di nuove (evitando i doppioni)
+
+Sistemare il meccanismo di log e commentare il codice
