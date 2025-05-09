@@ -7,7 +7,7 @@ LIVELLODEBUG=1;
 
 # Configure the access_token in config.cfg
 
-source ./config.cfg
+source ./cfg/config.cfg
 source ./getToken.sh
 
 
@@ -73,10 +73,10 @@ fi
 cp $1 "$1-ieri"
 #debug
 if [ "$LIVELLODEBUG" -gt 0 ]; then
-	echo "ST:removeDuplicatedTracks 001001 * sort -R $fileTracksDeduplicated > $1"
+	echo "ST:removeDuplicatedTracks 001001 * shuf  $fileTracksDeduplicated > $1"
 fi	
 
-sort -R $fileTracksDeduplicated > $1
+shuf  -R $fileTracksDeduplicated > $1
 
 #debug
 #if [ "$LIVELLODEBUG" -gt 0 ]; then

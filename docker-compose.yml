@@ -5,7 +5,9 @@ services:
     container_name: radioToSpotify
     volumes:
       - ./cfg:/app/cfg
-      - ./workdir:/app/workdir
+      - ./workfiles:/app/workfiles
     environment:
       - CFG_PATH=/app/cfg
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - PASSWORD=${PASSWORD}
     restart: unless-stopped

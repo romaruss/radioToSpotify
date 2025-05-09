@@ -2,7 +2,7 @@
 FROM alpine:latest
 
 # Installa Bash, Git e Curl (o altri pacchetti necessari)
-RUN apk add --no-cache bash git curl
+RUN apk add --no-cache bash git curl jq coreutils
 
 # Imposta la directory di lavoro
 WORKDIR /app
