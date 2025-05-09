@@ -7,9 +7,15 @@ function refreshToken(){
 #echo "base64ClientIDSecret: " $base64ClientIDSecret
 #echo "refreshTokenCFG: " $refreshTokenCFG
 
-if [ -z ${refreshTokenCFG:-} ]; then
+if [ -z "${refreshTokenCFG:-}" ]; then
 
-	refreshTokenCFG=$(cat $refreshTokenFile)
+    # Se il file non esiste, crealo con contenuto "null"
+    if [ ! -f "$refreshTokenFile" ]; then
+        echo "null" > "$refreshTokenFile"
+    fi
+
+    # Leggi il contenuto del file
+    refreshTokenCFG=$(cat "$refreshTokenFile")
 fi
 
 curl -s -H "Authorization: Basic $base64ClientIDSecret" -d grant_type=refresh_token -d refresh_token=$refreshTokenCFG https://accounts.spotify.com/api/token | jq -r ".access_token"
