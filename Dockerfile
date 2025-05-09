@@ -1,27 +1,31 @@
 # Usa Alpine per un'immagine leggera
-FROM alpine:latest
+FROM alpine:3.21.3
 
-# Installa Bash, Git e Curl (o altri pacchetti necessari)
+
+# Installa Bash, Git, Curl e altri pacchetti necessari
 RUN apk add --no-cache bash git curl jq coreutils gawk 
 
 # Imposta la directory di lavoro
-WORKDIR /
+WORKDIR /app
 
+# Crea la cartella di lavoro
 RUN mkdir -p workfiles
-# Copia gli script, il file di configurazione e la cartella workdir
+
+# Copia gli script, il file di configurazione e la cartella workfiles
 COPY . .
 
 # Rendi eseguibili gli script
 RUN chmod +x *.sh
 
-# Specifica un comando di default (può essere uno script principale o un menu)
-#CMD ["bash", "./createPlaylist.sh"]
+# Crea la cartella per i cron job
+RUN mkdir -p /etc/crontabs/
+RUN mkdir -p /etc/crontabs/root
 
-RUN mkdir /etc/cron
-RUN echo "${CRON} bash ./createPlaylist.sh" > /etc/cron/crontab
-RUN echo "# empty line" >> /etc/cron/crontab
+# Aggiungi il cron job
+RUN echo "${CRON} /bin/bash /app/createPlaylist.sh >> /app/cron.log 2>&1" > /etc/crontabs/root
 
-# Init cron
-RUN crontab /etc/cron/crontab
+# Assicurati che il log file esista
+RUN touch /app/cron.log
 
-CMD ["crond", "-f"]
+# Avvia crond in modalità foreground
+CMD ["crond", "-f", "-l", "2"]
