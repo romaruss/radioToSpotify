@@ -1,6 +1,8 @@
  #!/usr/bin/env bash
 set -eu
-LIVELLODEBUG=1;
+if [ -z "$LIVELLODEBUG" ]; then
+  LIVELLODEBUG=0
+fi
 # Creates a spotify playlist from the top tracks of a list of artist read from a file
 # Usage: ./create_playlist_from_artists.sh <filename>
 # Requires: curl and jq
@@ -76,7 +78,7 @@ if [ "$LIVELLODEBUG" -gt 0 ]; then
 	echo "ST:removeDuplicatedTracks 001001 * shuf  $fileTracksDeduplicated > $1"
 fi	
 
-shuf  -R $fileTracksDeduplicated > $1
+shuf  $fileTracksDeduplicated > $1
 
 #debug
 #if [ "$LIVELLODEBUG" -gt 0 ]; then
