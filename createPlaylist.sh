@@ -27,7 +27,6 @@ if [ $? -ne 0 ] || [ -z "$response" ]; then
 fi
 user_id=$(echo "$response" | jq -r ".id")
 
-#curl -X GET "https://api.spotify.com/v1/me" -H "Authorization: Bearer BQDkpTJN_EKr4-7ds0OUGVWwg4ZEpZ7R3MiR8PoQRFXzeVnr4alJWJ9lsRaJqUaF-9CvRgOrGwncc43zUzDe7RbVEKP0h6oiqiSnX36gQv5q5XZilfYjj6CabA-GBaPcCGezdanc4Xweyp4B3A2r14c-4kK6bmehxwtXpXAQ5ksNDc16pQ" | jq -r ".id"
 #debug
 if [ "$LIVELLODEBUG" -gt 0 ]; then
 	echo "user ID: "$user_id

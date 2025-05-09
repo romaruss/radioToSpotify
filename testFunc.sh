@@ -20,7 +20,6 @@ access_token=$(refreshToken)
 headers=(-H "Accept application/json" -H "Authorization: Bearer ${access_token}" )
 
 user_id=$(curl -s -X GET "https://api.spotify.com/v1/me" "${headers[@]}" | jq -r ".id")
-#curl -X GET "https://api.spotify.com/v1/me" -H "Authorization: Bearer BQDkpTJN_EKr4-7ds0OUGVWwg4ZEpZ7R3MiR8PoQRFXzeVnr4alJWJ9lsRaJqUaF-9CvRgOrGwncc43zUzDe7RbVEKP0h6oiqiSnX36gQv5q5XZilfYjj6CabA-GBaPcCGezdanc4Xweyp4B3A2r14c-4kK6bmehxwtXpXAQ5ksNDc16pQ" | jq -r ".id"
 echo "user ID: "$user_id
 #echo "Access Token: "$access_token
 #echo "header: "${headers[@]}

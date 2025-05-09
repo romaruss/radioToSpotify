@@ -1,0 +1,11 @@
+version: '3'
+services:
+  my-scripts:
+    build: .
+    container_name: radioToSpotify
+    volumes:
+      - ./cfg:/app/cfg
+      - ./workdir:/app/workdir
+    environment:
+      - CFG_PATH=/app/cfg
+    restart: unless-stopped
