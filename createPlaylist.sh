@@ -10,7 +10,7 @@ set -eu
 source ./cfg/config.cfg
 source ./getToken.sh
 
-if [ -z "$LIVELLODEBUG" ]; then
+if ! [ -v LIVELLODEBUG ]; then
   LIVELLODEBUG=0
 fi
 # Internal settings
